@@ -1,0 +1,14 @@
+{
+    "name": "blackjack-api",
+    "version": "1.0.0",
+    "description": "Backend API for Blackjack Game",
+    "author": "LePaul Love",
+    "main": "app.js",
+    "scripts": {
+        "start": "npm install && node app"
+    },
+    "dependencies": {
+        "express": "*",
+        "shortid": "*"
+    }
+}
