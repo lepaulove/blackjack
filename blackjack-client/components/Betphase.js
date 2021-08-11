@@ -31,24 +31,14 @@ class BetPhase extends React.Component{
         
     }
 
-    // startGame = ()=>{
-    //     // console.log(this.state.currentBet)
-    //     this.props.setBet(this.state.currentBet)
-    //     this.props.toggleView()
-    //     // this.setState({playerReady: true})
-    //     // console.log("START")
-    // }
-
     async startGame(){
         // console.log(this.state.currentBet)
         let id = this.props.gameID
         await this.props.setBet(this.state.currentBet)
         const bet = this.state.currentBet
-        const url = `http://localhost:3000/api/game/${id}/${bet}/setBet`
+        const url = `/api/game/${id}/${bet}/setBet`
         fetch(url)
         this.props.toggleView()
-        // this.setState({playerReady: true})
-        // console.log("START")
     }
 
     render(){

@@ -23,7 +23,7 @@ class GamePlay extends React.Component{
 
     async hit(){
         let id = this.state.gameID
-        const url = `http://localhost:3000/api/game/${id}/hit`
+        const url = `/api/game/${id}/hit`
         const response = await fetch(url)
         let data = await response.json()
         await this.setState({player: data})
@@ -31,77 +31,21 @@ class GamePlay extends React.Component{
             this.stay()
         }
         console.log(data)
-
-        // await this.setState(prevState => {
-        //     let player = Object.assign({}, prevState.player)
-        //     player.cards.push(theCard)
-        //     player.currentScore = this.calculateCardTotal(player.cards)
-        //     player.bust = (player.currentScore > 21 ? true : false)
-        //     return { player }
-        // })
     }
-
-    // async deal(button){
-    //     let id = this.state.gameID
-    //     const url = `http://localhost:3000/api/game/${id}/deal` //security flaw
-    //     const response = await fetch(url)
-    //     let data = await response.json()
-    //     if(this.state.player.bust){
-    //         this.stay(data)
-    //         return
-    //     }else{
-    //         this.hit(data)
-    //     }
-    // }
 
     async stay(){
         await this.setState({showDealerHand: true})
         let id = this.state.gameID
-        const url = `http://localhost:3000/api/game/${id}/stay`
+        const url = `/api/game/${id}/stay`
         const response = await fetch(url)
         let data = await response.json()
         await this.setState({dealer: data.dealer, displayStatus: data.winStatus})
         console.log(data)
         // this.setState({showDealerHand: true})
-        // while(this.state.dealer.currentScore < 17){
-        //     await this.setState(prevState => {
-        //         let dealer = Object.assign({}, prevState.dealer);
-        //         dealer.cards.push(theCard)
-        //         dealer.currentScore = this.calculateCardTotal(dealer.cards) 
-        //         dealer.bust = (dealer.currentScore > 21 ? true : false)               
-        //     return { dealer }
-        //       })
-        // }
-        // this.winnerCircle(this.state.player, this.state.dealer)
         this
         this.reset()
         this.setState({displayWinner: true})
     }
-
-    // calculateCardTotal = (cards) =>{
-    //     let total = 0
-    //     let ace = []
-    //     let item
-    //     let a
-    //     console.log(cards)
-    //     for(item of cards){
-    //         if(item.value == "A"){
-    //             ace.push(item);
-    //         }else if((typeof item.value) == "number"){
-    //             total += item.value
-    //         }else{
-    //             total += 10
-    //         } 
-    //     }
-    //     for( a in ace){
-    //         if(total <= 10){
-    //             total += 11
-    //         }else{
-    //             total += 1
-    //         }
-    //     }
-    //     return total
-    // }
 
     winnerCircle = (player, dealer) =>{
         if(player.bust && dealer.currentScore < 21){
@@ -138,59 +82,6 @@ class GamePlay extends React.Component{
             </div>)
     }
 
-    // displayCards = (cards)=>{
-    //     if(cards.length > 6){ 
-    //         return(
-    //             <div>
-    //                 <CardRender value={cards[0].value} suit={cards[0].suit} />
-    //                 <CardRender value={cards[1].value} suit={cards[1].suit} />
-    //                 <CardRender value={cards[2].value} suit={cards[2].suit} />
-    //                 <CardRender value={cards[3].value} suit={cards[3].suit} />
-    //                 <CardRender value={cards[4].value} suit={cards[4].suit} />
-    //                 <CardRender value={cards[5].value} suit={cards[5].suit} />
-    //                 <CardRender value={cards[6].value} suit={cards[6].suit} />
-    //             </div> )}
-    //     if(cards.length > 5){ 
-    //         return(
-    //             <div>
-    //                 <CardRender value={cards[0].value} suit={cards[0].suit} />
-    //                 <CardRender value={cards[1].value} suit={cards[1].suit} />
-    //                 <CardRender value={cards[2].value} suit={cards[2].suit} />
-    //                 <CardRender value={cards[3].value} suit={cards[3].suit} />
-    //                 <CardRender value={cards[4].value} suit={cards[4].suit} />
-    //                 <CardRender value={cards[5].value} suit={cards[5].suit} />
-    //             </div> )}
-    //     if(cards.length > 4){ 
-    //         return(
-    //             <div>
-    //                 <CardRender value={cards[0].value} suit={cards[0].suit} />
-    //                 <CardRender value={cards[1].value} suit={cards[1].suit} />
-    //                 <CardRender value={cards[2].value} suit={cards[2].suit} />
-    //                 <CardRender value={cards[3].value} suit={cards[3].suit} />
-    //                 <CardRender value={cards[4].value} suit={cards[4].suit} />
-    //             </div> )}
-    //     if(cards.length > 3){ 
-    //         return(
-    //             <div>
-    //                 <CardRender value={cards[0].value} suit={cards[0].suit} />
-    //                 <CardRender value={cards[1].value} suit={cards[1].suit} />
-    //                 <CardRender value={cards[2].value} suit={cards[2].suit} />
-    //                 <CardRender value={cards[3].value} suit={cards[3].suit} />
-    //             </div> )}
-    //     if(cards.length > 2){ 
-    //         return(
-    //             <div>
-    //                 <CardRender value={cards[0].value} suit={cards[0].suit} />
-    //                 <CardRender value={cards[1].value} suit={cards[1].suit} />
-    //                 <CardRender value={cards[2].value} suit={cards[2].suit} />
-    //             </div> )}
-    //     return(
-    //         <div>
-    //             <CardRender value={cards[0].value} suit={cards[0].suit} />
-    //             <CardRender value={cards[1].value} suit={cards[1].suit} />
-    //         </div> )
-    // }
-
     async updateJellybeanTotal(status){
         await this.setState(prevState => {
             let player = Object.assign({}, prevState.player); 
@@ -214,7 +105,7 @@ class GamePlay extends React.Component{
         let id = this.state.gameID
         let playerBet = this.state.bet
         // let newTotal = this.state.player.jellyBeans
-        const url = `http://localhost:3000/api/game/${id}/reset` //security flaw
+        const url = `/api/game/${id}/reset` //security flaw
         const response = await fetch(url)
         const data = await response.json()
         // this.setState({game: data, nextPhase: true})

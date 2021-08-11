@@ -15,7 +15,7 @@ class Game extends React.Component{
     }
 
     async startGame(){
-        const url = `http://localhost:3000/api/game/newGame`
+        const url = `/api/game/newGame`
         const response = await fetch(url)
         const data = await response.json()
         this.setState({gameID: data.gameID, game: data, nextPhase: true})
@@ -25,7 +25,7 @@ class Game extends React.Component{
     async findGame(){
         console.log(this.state.gameID)
         let id = this.state.gameID
-        const url = `http://localhost:3000/api/game/${id}`
+        const url = `/api/game/${id}`
         const response = await fetch(url)
         const data = await response.json()
         this.setState({game: data, nextPhase: true})
@@ -98,6 +98,17 @@ class Game extends React.Component{
                             <input type='text' onChange={this.captureUsername}></input>
                             <button id='find-user-button' onClick={this.findGames}>Find Game</button>
                     </section>
+                    <h3>Welcome to my Black Jack game!!</h3>
+                    <h4>This game was written as a part of a class project during my senior year at UNO. My goal
+                        for launching this web application was to gain experiance in deploying full-stack applications to the
+                        internet. needless to say, I've accomplished this goal and learned a lot in the process like
+                        how to use reverse proxies to route traffic from the internet to the different compenents of
+                        my web application using NGINX. This game is probably full of BUGS, but it works nonetheless🙃. You can find a 
+                        link to the source code below if you want to make improvements or just see what raw software files
+                        look like. Without further ado, please enjoy!!😊😊😊 
+                    </h4>
+                    <h4>LePaul Love</h4>
+                    <a  href='https://github.com/lepaulove/blackjack'>Link to source code</a>
                     <h1>{this.state.message}</h1>
                 </div>
             )
